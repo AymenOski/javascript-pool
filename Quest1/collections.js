@@ -30,25 +30,30 @@ const superTypeOf = (value) => {
         return 'array';
     }
     if (typeof value !== 'object') {
-        return type;
+        return typeof value ;
     }
     if (value instanceof Set) {
-        return 'set';
+        return 'Set';
     }
     if (value instanceof Map) {
         
-        return 'map';
+        return 'Map';
     }
     if (typeof value === 'object' ){
         return 'object';
     }
 }
+// map
+console.log(superTypeOf()); // object
+
+/*
 const  mySet = new Set([1, 2, 3, 4, 5]);
 console.log(mySet.__proto__); // Object [Set] {} => every object you declare inherits from Object.prototype properties and methods
 console.log(mySet.__proto__ === Set.prototype); // true
 // alternatively, you can use Object.getPrototypeOf(mySet) to get the prototype of an object instead of using __proto__ directly becuase __proto__ is not a standard way to access the prototype chain and may not be available in all environments.
 // this is how instance of operator works under the hood
 // and we can say that it works as follows:
+*/
 /*-------
 const instanceOf = (obj, constructor) => {
     let proto = Object.getPrototypeOf(obj);
