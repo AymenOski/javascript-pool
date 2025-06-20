@@ -27,24 +27,29 @@ const strToObj = (str) => Object.assign({}, strToArr(str))
 const superTypeOf = (value) => {
     if (value === null) return 'null'; // 1995 javascript bug , it should not be typeof object
     if (Array.isArray(value)) {
-        return 'array';
-    }
-    if (typeof value !== 'object') {
-        return typeof value ;
+        return 'Array';
     }
     if (value instanceof Set) {
         return 'Set';
     }
     if (value instanceof Map) {
-        
         return 'Map';
     }
-    if (typeof value === 'object' ){
-        return 'object';
+    switch (typeof value) {
+        case 'string':
+            return 'String';
+        case 'number':
+            return 'Number';
+        case 'boolean':
+            return 'Boolean';
+        case 'function':
+            return 'Function';
+        case 'undefined':
+            return 'undefined';
+        case 'object':
+            return 'Object';
     }
 }
-// map
-console.log(superTypeOf()); // object
 
 /*
 const  mySet = new Set([1, 2, 3, 4, 5]);
@@ -66,7 +71,7 @@ const instanceOf = (obj, constructor) => {
     return false;
     }
     --------*/
-    // we are checking if the prototype of the object is equal to the prototype of the constructor
+// we are checking if the prototype of the object is equal to the prototype of the constructor
 
 const str = 'hello'
 const arr = [1, 2, 1, 3]
