@@ -21,8 +21,47 @@ const objToMap = (obj) => new Map(Object.entries(obj)); // we turned the object 
 
 const arrToObj = (arr) => Object.assign({}, arr);
 
-const strToObj = (str) => Object.assign({},strToArr(str))
+const strToObj = (str) => Object.assign({}, strToArr(str))
 // or alternatively:   => arrToObj(strToArr(str));
+
+const superTypeOf = (value) => {
+    if (value === null) return 'null'; // 1995 javascript bug , it should not be typeof object
+    if (Array.isArray(value)) {
+        return 'array';
+    }
+    if (typeof value !== 'object') {
+        return type;
+    }
+    if (value instanceof Set) {
+        return 'set';
+    }
+    if (value instanceof Map) {
+        
+        return 'map';
+    }
+    if (typeof value === 'object' ){
+        return 'object';
+    }
+}
+const  mySet = new Set([1, 2, 3, 4, 5]);
+console.log(mySet.__proto__); // Object [Set] {} => every object you declare inherits from Object.prototype properties and methods
+console.log(mySet.__proto__ === Set.prototype); // true
+// alternatively, you can use Object.getPrototypeOf(mySet) to get the prototype of an object instead of using __proto__ directly becuase __proto__ is not a standard way to access the prototype chain and may not be available in all environments.
+// this is how instance of operator works under the hood
+// and we can say that it works as follows:
+/*-------
+const instanceOf = (obj, constructor) => {
+    let proto = Object.getPrototypeOf(obj);
+    while (proto) {
+        if (proto === constructor.prototype) {
+            return true;
+        }
+        proto = Object.getPrototypeOf(proto);
+    }
+    return false;
+    }
+    --------*/
+    // we are checking if the prototype of the object is equal to the prototype of the constructor
 
 const str = 'hello'
 const arr = [1, 2, 1, 3]
@@ -39,7 +78,7 @@ map.set('a', 3)
 map.set(3, 'c')
 map.set(4, 'd')
 
-
+/*
 
 console.log(arrToSet(arr)); // Set { 1, 2, 3 }
 console.log(arrToStr(arr)); // '1213'
@@ -53,3 +92,4 @@ console.log(objToMap(obj)); // Map { 'x' => 45, 'y' => 75, 'radius' => 24 }
 console.log(arrToObj(arr)); // { '0': 1, '1': 2, '2': 1, '3': 3 }
 console.log(strToObj(str)); // { '0': 'h', '1': 'e', '2': 'l', '3': 'l', '4': 'o'
 
+*/
