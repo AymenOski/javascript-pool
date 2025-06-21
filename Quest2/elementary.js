@@ -1,5 +1,3 @@
-
-
 // multiply that acts like the * operator, without using it.
 const multiply = (a, b) => {
     if (a < 0 && b < 0) {
