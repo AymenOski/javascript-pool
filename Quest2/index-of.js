@@ -14,7 +14,7 @@ const indexOf = (arr , value , StartIndex = 0) => {
         StartIndex = StartIndex + arr.length
     }
     if (StartIndex >= arr.length){
-        StartIndex = arr.length-1;
+        return -1;
     }
     for (let i=StartIndex ; i < arr.length ; i++){
         if (value === arr[i]){
@@ -30,7 +30,7 @@ const lastIndexOf = (arr , value , StartIndex = arr.length-1) => {
         StartIndex += arr.length;
     }
     if (StartIndex >= arr.length){
-        StartIndex = arr.length-1;
+        return -1;
     }
     
       for (let i = StartIndex; i >= 0; i--) {        
