@@ -1,10 +1,25 @@
-//  Some restrictions apply:
-// 
-// You may not use strings conversion to do it
-// 
-// No bitwise operator
-// 
-// No % operator
+/*
+
+Instructions
+Create some functions which behave like JavaScript's Math rounding functions:
+
+round: which behaves similar to Math.round().
+
+ceil: which behaves similar to Math.ceil().
+
+floor: which behaves similar to Math.floor().
+
+trunc: which behaves similar to Math.trunc().
+
+Some restrictions apply:
+
+You may not use strings conversion to do it
+
+No bitwise operator
+
+No % operator
+
+*/
 
 // round: which behaves similar to Math.round().
 function round(int) {

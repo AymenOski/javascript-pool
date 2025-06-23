@@ -1,3 +1,11 @@
+/*
+
+Instructions
+Create a function named reverse which accepts an array or a string. 
+It should work like Array.reverse(), and of course you cannot use that.
+
+*/
+
 const reverse = (arr) => {
     let newArr = typeof arr === "string" ? "" : [];
 

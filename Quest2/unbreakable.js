@@ -1,3 +1,15 @@
+/*
+
+Instructions
+Implement 2 functions:
+
+split that works like String.split, but takes the string as its first argument.
+
+join that works like Array.join, but take the array as its first argument.
+
+*/
+
+
 const split = (str, separator = '') => {
     let result = [];
     let temp = '';
