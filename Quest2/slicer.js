@@ -1,3 +1,18 @@
+/*
+
+Instructions
+Create a function named slice that works like Array.slice() and String.slice().
+
+It takes 3 arguments:
+
+string or array to process.
+
+starting index.
+
+optional ending index.
+
+*/
+
 const slice = (arr, start, end = arr.length) => {
     if (start < 0) {
         start += arr.length;
