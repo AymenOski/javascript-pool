@@ -25,22 +25,22 @@ export const build = (numOfBricks) => {
     }, 100)
 };
 
-export const repair = (ids) => {
-    const rep = document.getElementById(ids);
-    console.log(rep);
-    if (!rep){
-        return;
-    }
+export function repair(...ids) {
+    console.log(ids);
+    
+  ids.map(id => {
+    let brick = document.getElementById(id);
+    if (!brick) return; 
 
-    if (rep.hasAttribute("foundation")) {
-        rep.setAttribute("repaired", `in progress`);
-        rep.textContent = `repaired: in progress`;
-        return;
+    if (brick.dataset.foundation === "true") {
+    //   brick.setAttribute("repaired", "in progress");
+      brick.dataset.repaired = "in progress"
     } else {
-        rep.setAttribute("repaired", `true`);
-        rep.textContent = `repaired: true`;
+    //   brick.setAttribute("repaired", "true");
+      brick.dataset.repaired = "true"
     }
-};
+  });
+}
 
 export const destroy = () => {
   const bricks = [...document.querySelectorAll('[id^="brick-"]')];
