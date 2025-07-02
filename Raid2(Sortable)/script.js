@@ -4,19 +4,19 @@ const url =
 let allHeroes = [];
 let currentFilter = "";
 let currentNumber = 20;
-let currentSortColumn = 1;
-let currentSortOrder = "asc";
+let currentSortColumn = 'name';
+let currentSortOrder = 'asc';
 const columnMap = {
-    1: "name",
-    2: "biography.fullName",
-    3: "powerstats.intelligence",
-    4: "appearance.race",
-    5: "appearance.gender",
-    6: "appearance.height[1]",
-    7: "appearance.weight[1]",
-    8: "biography.placeOfBirth",
-    9: "biography.alignment",
-  };
+  1: "name",
+  2: "biography.fullName",
+  3: "powerstats.intelligence",
+  4: "appearance.race",
+  5: "appearance.gender",
+  6: "appearance.height[1]",
+  7: "appearance.weight[1]",
+  8: "biography.placeOfBirth",
+  9: "biography.alignment",
+};
 
 const parsedata = (heroes) => {
   const tbody = document.querySelector("tbody");
@@ -57,12 +57,29 @@ const updateDisplay = () => {
       hero.name.toLowerCase().includes(currentFilter)
     );
   }
-  let column = columnMap[currentSortColumn];
-  if (currentSortOrder === "asc") {
-    
-  }
-  const toShow = currentNumber === "all" ? filtered : filtered.slice(0, parseInt(currentNumber));
+  let toShow = currentNumber === "all" ? filtered : filtered.slice(0, parseInt(currentNumber));
 
+  // let column = columnMap[currentSortColumn];
+  // let last = [];
+  // if (currentSortOrder === "asc") {
+  //   if (toShow.some(v => extractNumber(v) || v === '')) {
+  //     if (v === '') {
+  //       last.push(v);
+  //     }
+  //     toShow.column.sort((a, b) => a - b);
+  //   } else {
+  //     // string 
+  //     toShow.column.sort((a, b) => a.localeCompare(b));
+  //   }
+  // } else if (currentSortOrder === "desc") {
+  //   if (toShow.column.some(v => extractNumber(v))) {
+  //     ages.sort((a, b) => b - a);
+  //   } else {
+  //     // string 
+  //     heroes.sort((a, b) => b.localeCompare(a));
+  //   }
+  // }
+  // toShow.column.push(...last)
   parsedata(toShow);
 };
 
@@ -84,28 +101,28 @@ document.getElementById("site-search").addEventListener("input", (e) => {
 });
 
 
-const sorting = () => {
-  const sort = document.querySelectorAll(".sort-btn");
-  sort.forEach((button , index) => {
-    button.addEventListener("click" , () => {
-      const checkbox = button.querySelector(".sort-order");
-      checkbox.checked = !checkbox.checked;
-      sort.forEach((btn , i) => {
-        if(i !== index) {
-          const cb = btn.querySelector(".sort-order");
-          cb.checked = false;
-        }
-      })
-      const order = checkbox.checked ? "desc" : "asc";
-      currentSortOrder = order;
-      currentSortColumn = index;
+const setupSorting = () => {
+  document.querySelectorAll('th[data-column]').forEach(th => {
+    th.addEventListener('click', () => {
+      const column = th.dataset.column;
+      if (column === 'images.xs') return;
+      if (currentSortColumn === column) {
+        currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSortColumn = column;
+        currentSortOrder = 'asc';
+      }
+      document.querySelectorAll('th').forEach(header => {
+        header.classList.remove('sorted-asc', 'sorted-desc');
+      });
+      th.classList.add(`sorted-${currentSortOrder}`);
+      updateDisplay();
     });
   });
-}
+};
+setupSorting();
 
 function extractNumber(value) {
   const match = value.match(/\d+/);
   return match ? parseInt(match[0]) : NaN;
 }
-
-sorting();

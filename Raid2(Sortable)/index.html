@@ -17,26 +17,26 @@
         <option value="100">100</option>
         <option value="all">all</option>
     </select>
-        <br><br>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th><button class="sort-btn">Icon<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Name<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Full Name<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Powerstats<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Race<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Gender<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Height<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Weight<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Place Of Birth<input type="checkbox" class="sort-order" hidden></button></th>
-                    <th><button class="sort-btn">Alignment<input type="checkbox" class="sort-order" hidden></button></th>
-                </tr>
-            </thead>
-            <tbody>
+    <br><br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th data-column="images.xs">Icon</th>
+                <th data-column="name">Name</th>
+                <th data-column="biography.fullName">Full Name</th>
+                <th data-column="-">Powerstats</th> <!-- disable at the moment until we make the powerstats table -->
+                <th data-column="appearance.race">Race</th>
+                <th data-column="appearance.gender">Gender</th>
+                <th data-column="appearance.height[1]">Height</th>
+                <th data-column="appearance.weight[1]">Weight</th>
+                <th data-column="biography.placeOfBirth">Place of Birth</th>
+                <th data-column="biography.alignment">Alignment</th>
+            </tr>
+        </thead>
+        <tbody>
 
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 </body>
 <script src="script.js"></script>
 

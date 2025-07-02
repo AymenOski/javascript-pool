@@ -6,8 +6,6 @@ body{
 
 }
 
-
-
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -22,4 +20,12 @@ td, th {
 
 .hidden {
   display: none;
+}
+
+
+th.sorted-asc::after {
+  content: ' ↑';
+}
+th.sorted-desc::after {
+  content: ' ↓';
 }
