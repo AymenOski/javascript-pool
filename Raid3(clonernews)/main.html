@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Hacker News Feed</title>
+    <script src="script.js" defer></script>
     <style>
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
@@ -13,70 +15,221 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        #seeMore {
-            display: block;
-            margin: 0 auto 30px;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        }
-
-        #seeMore:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
-            background: linear-gradient(45deg, #ee5a52, #ff6b6b);
-        }
-
-        #seeMore:active {
-            transform: translateY(0);
-        }
-
-        #show {
-            display: grid;
-            gap: 15px;
-        }
-
-        #show p {
-            padding: 20px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            border-left: 4px solid #4ecdc4;
-            font-size: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
             line-height: 1.6;
-            color: #2c3e50;
-            transition: all 0.3s ease;
+            background-color: #f0f2f5;
+            color: #1a1a1a;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Update container for centering the newItems button */
+        .update-container {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        /* Button group */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .fetch-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s, box-shadow 0.2s;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        #show p:hover {
-            transform: translateX(5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        #fetchNewStories {
+            background-color: #007bff;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+        #fetchNewJobs {
+            background-color: #28a745;
+        }
 
+        #fetchNewPolls {
+            background-color: #dc3545;
+        }
+
+        #newItems {
+            background: linear-gradient(90deg, purple, #800080);
+            /* Gradient for creativity */
+            width: 200px;
+            /* Fixed width for centering */
+            margin: 0 auto;
+            /* Center the button */
+            position: relative;
+        }
+
+        #newItems::after {
+            content: '✔';
+            /* Checkmark icon */
+            position: absolute;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        #newItems:hover::after {
+            opacity: 1;
+        }
+
+        .fetch-button:hover {
+            opacity: 0.9;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .fetch-button:active {
+            transform: scale(0.98);
+        }
+
+        .fetch-button:disabled {
+            background-color: #d1d5db;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .fetch-button:focus {
+            outline: 2px solid #007bff;
+            outline-offset: 2px;
+        }
+
+        .fetch-button.notify {
+            position: relative;
+            animation: pulse 1s infinite;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 0 8px #f59e0b;
+        }
+
+        @keyframes pulse {
+
+            0%,
             100% {
-                transform: rotate(360deg);
+                box-shadow: 0 0 8px #f59e0b;
+            }
+
+            50% {
+                box-shadow: 0 0 15px #fbbf24;
             }
         }
 
+        /* Post display area */
+        #show {
+            background-color: #ffffff;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-height: 100px;
+        }
+
+        /* Post styles */
+        #show>p {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            color: #333;
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            /* Indicate clickability */
+        }
+
+        #show>p:hover {
+            background-color: #e0e0e0;
+        }
+
+        #show>p a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        #show>p a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        #show>p a:focus {
+            outline: 1px dashed #007bff;
+            outline-offset: 2px;
+        }
+
+        #show>p strong {
+            font-size: 18px;
+            color: #1a1a1a;
+        }
+
+        #show>p small {
+            color: #4b5563;
+            font-size: 14px;
+            display: block;
+        }
+
+        #show>p .updated {
+            color: #15803d;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 8px;
+            display: inline-block;
+            background-color: #dcfce7;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Comment styles */
+        .comment {
+            margin-left: 24px;
+            margin-top: 12px;
+            padding: 12px;
+            border-left: 2px solid #28a745;
+            background-color: #f0fdf4;
+            border-radius: 4px;
+        }
+
+        .comment small {
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .comment p {
+            color: #1f2a44;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            color: #4b5563;
+            font-size: 16px;
+            padding: 20px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        /* Fade-in animation */
         .fade-in {
             animation: fadeIn 0.5s ease-in;
         }
@@ -84,7 +237,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(10px);
             }
 
             to {
@@ -93,31 +246,45 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 20px;
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .update-container {
+                margin-bottom: 16px;
             }
 
-            .header h1 {
-                font-size: 2rem;
+            .button-group {
+                flex-direction: column;
+                gap: 8px;
             }
 
-            #seeMore {
-                padding: 12px 25px;
-                font-size: 1rem;
+            .fetch-button {
+                width: 100%;
+                text-align: center;
+                padding: 12px;
+            }
+
+            .post,
+            .comment {
+                padding: 12px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div id="show"></div>
-    <button id="seeMore">see more?</button>
-
+    <div class="update-container">
+        <button id="newItems" class="fetch-button">Latest updates</button>
+    </div>
+    <div class="container">
+        <div class="button-group">
+            <button id="fetchNewStories" class="fetch-button">Latest Stories</button>
+            <button id="fetchNewJobs" class="fetch-button">Latest Jobs</button>
+            <button id="fetchNewPolls" class="fetch-button">Latest Polls</button>
+        </div>
+        <div id="show">
+        </div>
+        <div class="loading">Loading...</div>
+    </div>
 </body>
-<script type="module" src="./script.js">
-
-</script> 
 
 </html>
