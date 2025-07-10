@@ -10,24 +10,14 @@ if (disco === '') {
 if (disco.includes(' ')) {
     var newDisco = disco.split(' ')
     newDisco.forEach(element => {
-        if (element.length % 2 === 0) {
-            firstHalf = element.slice(0, Math.ceil((element.length / 2) - 1));
-            secendHalf = element.slice(Math.ceil((element.length / 2) - 1))
-        } else {
-            firstHalf = element.slice(0, Math.ceil((element.length / 2)));
-            secendHalf = element.slice((Math.ceil(element.length / 2)));
-        }
+        firstHalf = element.slice(0, Math.ceil((element.length / 2)));
+        secendHalf = element.slice((Math.ceil(element.length / 2)));
         s.push(secendHalf + firstHalf);
     });
     console.log(s.join(' '));
     process.exit(0)
 }
-if (disco.length % 2 === 0) {
-    firstHalf = disco.slice(0, (Math.ceil(disco.length / 2)));
-    secendHalf = disco.slice(Math.ceil((disco.length / 2)))
-} else {
-    firstHalf = disco.slice(0, (Math.ceil(disco.length / 2) - 1));
-    secendHalf = disco.slice(Math.ceil((disco.length / 2) - 1))
-}
+firstHalf = disco.slice(0, (Math.ceil(disco.length / 2)));
+secendHalf = disco.slice(Math.ceil((disco.length / 2)))
 console.log(secendHalf + firstHalf);
 
