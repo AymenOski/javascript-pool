@@ -10,11 +10,3 @@ function triangle(str, num) {
 
   return result;
 }
-
-
-
-
-
-
-
-
